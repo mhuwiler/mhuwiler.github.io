@@ -1,3 +1,7 @@
+layout: page
+title: "Ceating folders in / under MacOS Catalina"
+permalink: /MacOS/FoldersAtTheRoot
+
 # Ceating folders in / under MacOS Catalina 
 
 With MacOS 10.15 Catalina, the system volume has become read-only, and it is therefore not possible anymore to create folders at the root /. It is however possible to create a symbolic at / that points to some other folder with write persmission in the filesystem. 

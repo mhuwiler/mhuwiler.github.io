@@ -1,3 +1,8 @@
+layout: page
+title: "LANG = 'C' error in ssh "
+permalink: /sshLangCerror
+
+
 # LANG = "C" error in ssh 
 
 It can happen (namely on MacOS) that certain commands typed in a remote SSH session trigger the following error: 

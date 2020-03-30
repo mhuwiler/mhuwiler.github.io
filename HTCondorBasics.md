@@ -1,3 +1,8 @@
+layout: page
+title: "HTCondor batch system basics"
+permalink: /HTCondorBasics
+
+
 # HTCondor batch system 
 
 HTCondor is a High Throughput grid engine, available to schedule jobs on Lxplus. Here is a summary of the most useful commands related to its use. 
