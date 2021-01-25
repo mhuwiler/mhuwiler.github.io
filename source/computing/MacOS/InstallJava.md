@@ -1,4 +1,4 @@
-Install with Homebrew (preferred)
+#Install with Homebrew (preferred)
 
 brew cask install adoptopenjdk8
 
