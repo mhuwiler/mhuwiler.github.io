@@ -13,16 +13,16 @@ destdir="../data"
 def copyFolderContent(sourcedir, destdir): 
 	for item in os.listdir(sourcedir): 
 		#print item
-		itempath = os.path.join(sourcedir, item)
-		print itempath
-		if (os.path.isdir(itempath)): 
-			currentdir = os.path.join(destdir, item)
-			print "making directory", currentdir
-			os.system("mkdir -p "+currentdir)
-			copyFolderContent(itempath, currentdir)
-		elif (os.path.isfile(itempath)): 
-			destinationfile = open(os.path.join(destdir, item), "w")
-			with open(itempath, "r") as infile:
+		source = os.path.join(sourcedir, item)
+		print source
+		destination = os.path.join(destdir, item)
+		if (os.path.isdir(source)): 
+			print "making directory", destination
+			os.system("mkdir -p "+destination)
+			copyFolderContent(source, destination)
+		elif (os.path.isfile(source)): 
+			destinationfile = open(destination, "w")
+			with open(source, "r") as infile:
 				content = infile.readlines()
 				destinationfile.write("---\nheader\n---\n")
 				for line in content: 
@@ -30,7 +30,7 @@ def copyFolderContent(sourcedir, destdir):
 			destinationfile.close()
 
 		else: 
-			print "Error: {} is not file nor directory!".format(itempath)
+			print "Error: {} is not file nor directory!".format(source)
 
 	# Add as an entry to the menu 
 	
