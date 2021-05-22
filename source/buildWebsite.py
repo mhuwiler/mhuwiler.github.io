@@ -8,6 +8,8 @@ import shutil
 sourcedir = "."
 destdir="../data"
 
+urlbase="https://mhuwiler.github.io/"
+
 debug = True
 
 
