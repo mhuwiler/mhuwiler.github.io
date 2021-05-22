@@ -8,26 +8,35 @@ import shutil
 sourcedir = "."
 destdir="../data"
 
+debug = True
 
 
-def copyFolderContent(sourcedir, destdir): 
+
+def copyFolderContent(sourcedir, destdir, navfile, indent): 
 	for item in os.listdir(sourcedir): 
 		#print item
 		source = os.path.join(sourcedir, item)
-		print source
+		if (debug): print source
 		destination = os.path.join(destdir, item)
 		if (os.path.isdir(source)): 
-			print "making directory", destination
+			if (debug): print "\tmaking directory{}".format(destination)
 			os.system("mkdir -p "+destination)
-			copyFolderContent(source, destination)
+			navfile.write(indent*"\t"+"- title: "+item+"\n")
+			navfile.write(indent*"\t"+"  children: "+"\n")
+			copyFolderContent(source, destination, navfile, indent+1)
 		elif (os.path.isfile(source)): 
-			destinationfile = open(destination, "w")
-			with open(source, "r") as infile:
-				content = infile.readlines()
-				destinationfile.write("---\nheader\n---\n")
-				for line in content: 
-					destinationfile.write(line)
-			destinationfile.close()
+			if (".md" in item): # only copy .md files
+				if (debug): print "\tcopying file: {} to: {}".format(source, destination)
+				destinationfile = open(destination, "w")
+				with open(source, "r") as infile:
+					content = infile.readlines()
+					destinationfile.write("---\nheader\n---\n")
+					for line in content: 
+						destinationfile.write(line)
+				destinationfile.close()
+
+				navfile.write(indent*"\t"+"- title: \""+item+"\"\n")
+				navfile.write(indent*"\t"+"  url: "+item+"\n")
 
 		else: 
 			print "Error: {} is not file nor directory!".format(source)
@@ -39,7 +48,18 @@ def copyFolderContent(sourcedir, destdir):
 
 if __name__ == "__main__":
 
+	navigationfile = open("../navigation.yml", "w")
+
 	os.system("mkdir -p "+destdir)
-	copyFolderContent(sourcedir, destdir)
+	for item in os.listdir(sourcedir): 
+		source = os.path.join(sourcedir, item)
+		destination = os.path.join(destdir, item)
+		if (os.path.isdir(source)): 
+			navigationfile.write(item+":\n")
+			indentation = 1
+			os.system("mkdir -p "+destination)
+			copyFolderContent(source, destination, navigationfile, indentation)
+
+	navigationfile.close()
 
 
