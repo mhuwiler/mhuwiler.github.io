@@ -5,8 +5,8 @@ import sys
 import shutil
 
 
-sourcedir = "."
-destdir="../data"
+sourcedirectory = "."
+destinationdirectory="../data"
 
 urlbase="https://mhuwiler.github.io/"
 
@@ -23,7 +23,16 @@ def copyFolderContent(sourcedir, destdir, navfile, indent):
 		if (os.path.isdir(source)): 
 			if (debug): print "\tmaking directory{}".format(destination)
 			os.system("mkdir -p "+destination)
-			navfile.write(indent*"\t"+"- title: "+item+"\n")
+			title = ""
+			try: 
+				with open(source+"/title.txt") as titlefile: 
+					titlecontent = titlefile.readlines()
+					print titlecontent
+					assert(len(titlecontent) == 1), "ERROR: Please make sure the file 'title.txt' in {} contains only a single line.".format(source)
+					title = titlecontent[0].strip("\n")
+			except: 
+				title = item
+			navfile.write(indent*"\t"+"- title: "+title+"\n")
 			navfile.write(indent*"\t"+"  children: "+"\n")
 			copyFolderContent(source, destination, navfile, indent+1)
 		elif (os.path.isfile(source)): 
@@ -41,7 +50,7 @@ def copyFolderContent(sourcedir, destdir, navfile, indent):
 				navfile.write(indent*"\t"+"  url: "+item+"\n")
 
 		else: 
-			print "Error: {} is not file nor directory!".format(source)
+			print "Error: {} is not a content file nor a directory!".format(source)
 
 	# Add as an entry to the menu 
 	
@@ -52,10 +61,10 @@ if __name__ == "__main__":
 
 	navigationfile = open("../navigation.yml", "w")
 
-	os.system("mkdir -p "+destdir)
-	for item in os.listdir(sourcedir): 
-		source = os.path.join(sourcedir, item)
-		destination = os.path.join(destdir, item)
+	os.system("mkdir -p "+destinationdirectory)
+	for item in os.listdir(sourcedirectory): 
+		source = os.path.join(sourcedirectory, item)
+		destination = os.path.join(destinationdirectory, item)
 		if (os.path.isdir(source)): 
 			navigationfile.write(item+":\n")
 			indentation = 1
