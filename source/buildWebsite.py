@@ -9,7 +9,7 @@ sourcedirectory = "source/"
 destinationdirectory="content/"
 basedir = "/Users/mhuwiler/coding/mhuwiler.github.io/"
 
-urlbase="https://mhuwiler.github.io/"
+urlbase="http://127.0.0.1:4000/" #"https://mhuwiler.github.io/"
 
 debug = True
 
@@ -21,11 +21,11 @@ def copyFolderContent(sourcedir, destdir, navfile, indent, instance):
 		source = os.path.join(sourcedir, item)
 		src = basedir+source
 		if (debug): print src
-		destination = os.path.join(destdir, item)
+		destination = destdir+"_"+item #os.path.join(destdir, item)
 		dest = basedir+destination
 		if (os.path.isdir(src)): 
 			if (debug): print "\tmaking directory{}".format(dest)
-			os.system("mkdir -p "+dest)
+			#os.system("mkdir -p "+dest)
 			title = ""
 			try: 
 				with open(src+"/title.txt") as titlefile: 
@@ -73,12 +73,12 @@ if __name__ == "__main__":
 	os.system("mkdir -p "+basedir+destinationdirectory)
 	for item in os.listdir(basedir+sourcedirectory): 
 		source = os.path.join(sourcedirectory, item)
-		destination = os.path.join(destinationdirectory, item)
+		destination = destinationdirectory+item #os.path.join(destinationdirectory, item)
 		print item
 		if (os.path.isdir(basedir+source)): 
 			navigationfile.write(item+":\n")
 			indentation = 1
-			os.system("mkdir -p "+basedir+destination)
+			#os.system("mkdir -p "+basedir+destination)
 			copyFolderContent(source, destination, navigationfile, indentation, item)
 
 	navigationfile.close()
