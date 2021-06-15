@@ -39,6 +39,7 @@ def copyFolderContent(sourcedir, destdir, navfile, indent, instance):
 			copyFolderContent(source, destination, navfile, indent+1, instance)
 		elif (os.path.isfile(src)): 
 			if (".md" in item): # only copy .md files
+				destination = source.replace("source/", "").replace(".md", "")
 				if (debug): print "\tcopying file: {} to: {}".format(src, dest)
 				destinationfile = open(dest, "w")
 				with open(src, "r") as infile:
