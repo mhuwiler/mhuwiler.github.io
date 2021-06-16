@@ -49,7 +49,9 @@ def copyFolderContent(sourcedir, destdir, navfile, indent, instance):
 					destinationfile.write("---\n")
 					destinationfile.write("title: {}\n".format("\"Title\""))
 					destinationfile.write("permalink: {}\n".format("/"+destination))
+					destinationfile.write("layout: single\n")
 					destinationfile.write("sidebar:\n  nav: \"{}\"\n".format(instance))
+					destinationfile.write("toc: true\n")
 					destinationfile.write("---\n")
 
 					for line in content: 
