@@ -3,6 +3,7 @@
 import os
 import sys
 import shutil
+import json
 
 
 sourcedirectory = "source/"
@@ -10,6 +11,8 @@ destinationdirectory="content/"
 basedir = "/Users/mhuwiler/coding/mhuwiler.github.io/"
 
 urlbase="http://127.0.0.1:4000/" #"https://mhuwiler.github.io/"
+
+CONFIGDELIMITER="#!header"
 
 debug = True
 
@@ -44,21 +47,30 @@ def copyFolderContent(sourcedir, destdir, navfile, indent, instance):
 				destinationfile = open(dest, "w")
 				with open(src, "r") as infile:
 					content = infile.readlines()
+					config = {}
+					if (content[0].find(CONFIGDELIMITER)==0): # the first line starts with the header marker 
+						config = json.loads(content[0][len(CONFIGDELIMITER):])
+						content.pop(0) # remove the header line 
 
 					# writing the header for navigation
 					destinationfile.write("---\n")
-					destinationfile.write("title: {}\n".format("\"Title\""))
+					if ("title" in config): 
+						destinationfile.write("title: {}\n".format(config["title"]))
 					destinationfile.write("permalink: {}\n".format("/"+destination))
 					destinationfile.write("layout: single\n")
 					destinationfile.write("sidebar:\n  nav: \"{}\"\n".format(instance))
-					destinationfile.write("toc: true\n")
+					if ("toc" in config and config["toc"]==1): destinationfile.write("toc: true\n")
 					destinationfile.write("---\n")
 
 					for line in content: 
 						destinationfile.write(line)
 				destinationfile.close()
 
-				navfile.write(indent*"  "+"- title: \""+item+"\"\n")
+				if ("navtitle" in config): 
+					navtitle = config["navtitle"]
+				else: 
+					navtitle = item.replace(".md", "")
+				navfile.write(indent*"  "+"- title: \""+navtitle+"\"\n")
 				navfile.write(indent*"  "+"  url: "+destination+"\n")
 
 		else: 
