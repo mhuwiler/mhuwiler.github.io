@@ -3,7 +3,7 @@
 import os
 import sys
 import shutil
-import json
+import yaml
 
 
 sourcedirectory = "source/"
@@ -48,9 +48,10 @@ def copyFolderContent(sourcedir, destdir, navfile, indent, instance):
 				with open(src, "r") as infile:
 					content = infile.readlines()
 					config = {}
-					if (content[0].find(CONFIGDELIMITER)==0): # the first line starts with the header marker 
-						config = json.loads(content[0][len(CONFIGDELIMITER):])
+					if (content[0].startswith(CONFIGDELIMITER)): # the first line starts with the header marker 
+						config = yaml.load(content[0][len(CONFIGDELIMITER):])
 						content.pop(0) # remove the header line 
+						print config
 
 					# writing the header for navigation
 					destinationfile.write("---\n")

@@ -1,4 +1,4 @@
-#Configuring git
+#!header{title: "Configuring git", navtitle: "git configuration", toc:0}
 
 In order to use git, you will need to provide some basic information: 
 
