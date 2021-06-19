@@ -1,7 +1,8 @@
 ––– 
-
+title: "Welcome to my web page!"
+permalink: /content/
 sidebar:
-  nav: "main"
+  nav: "home"
 –––
 
 
