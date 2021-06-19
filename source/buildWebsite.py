@@ -49,7 +49,7 @@ def copyFolderContent(sourcedir, destdir, navfile, indent, instance):
 					content = infile.readlines()
 					config = {}
 					if (content[0].startswith(CONFIGDELIMITER)): # the first line starts with the header marker 
-						config = yaml.load(content[0][len(CONFIGDELIMITER):])
+						config = yaml.safe_load(content[0][len(CONFIGDELIMITER):])
 						content.pop(0) # remove the header line 
 						print config
 
