@@ -1,4 +1,4 @@
-#!header{"title": "Find a in subfolders", "navtitle": "UNIX find", "toc":0}
+#<conf>{"title": "Find a in subfolders", "navtitle": "UNIX find", "toc":0}
 
 On Unix systems, it is extremely easy to find all files matching a given pattern in the subfolder of the current directory: 
 

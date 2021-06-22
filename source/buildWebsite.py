@@ -12,7 +12,7 @@ basedir = "/Users/mhuwiler/coding/mhuwiler.github.io/"
 
 urlbase="http://127.0.0.1:4000/" #"https://mhuwiler.github.io/"
 
-CONFIGDELIMITER="#!header"
+CONFIGDELIMITER="#<conf>" #"#!header"
 
 debug = True
 

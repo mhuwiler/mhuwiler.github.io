@@ -1,10 +1,4 @@
-––– 
-title: "Welcome to my web page!"
-permalink: /content/
-sidebar:
-  nav: "home"
-–––
-
+#<conf>{"title": "Welcome to my web page!", "navtitle": "Home", "toc":0}
 
 ## About me
 
