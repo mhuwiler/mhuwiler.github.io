@@ -38,6 +38,31 @@ def copyFolderContent(sourcedir, destdir, navfile, indent, instance):
 			except: 
 				title = item
 			navfile.write(indent*"  "+"- title: "+title+"\n")
+			if (os.path.isfile(src+"/index.md")): # There is a index.md file in the folder 
+				destinationfile = open(dest+"_index.md", "w")
+				with open(src+"/index.md", "r") as infile:
+					content = infile.readlines()
+					config = {}
+					if (content[0].startswith(CONFIGDELIMITER)): # the first line starts with the header marker 
+						config = yaml.safe_load(content[0][len(CONFIGDELIMITER):])
+						content.pop(0) # remove the header line 
+						print config
+
+					# writing the header for navigation
+					destinationfile.write("---\n")
+					if ("title" in config): 
+						destinationfile.write("title: {}\n".format(config["title"]))
+					destinationfile.write("permalink: {}\n".format("/"+destination))
+					destinationfile.write("layout: single\n")
+					destinationfile.write("sidebar:\n  nav: \"{}\"\n".format(instance))
+					if ("toc" in config and config["toc"]==1): destinationfile.write("toc: true\n")
+					destinationfile.write("---\n")
+
+					for line in content: 
+						destinationfile.write(line)
+				destinationfile.close()
+				navfile.write(indent*"  "+"  url: "+destination+"\n")
+
 			navfile.write(indent*"  "+"  children: "+"\n")
 			copyFolderContent(source, destination, navfile, indent+1, instance)
 		elif (os.path.isfile(src)): 
