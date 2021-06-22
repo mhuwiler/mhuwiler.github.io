@@ -4,6 +4,7 @@ import os
 import sys
 import shutil
 import yaml
+import glob
 
 
 sourcedirectory = "source/"
@@ -112,6 +113,45 @@ if __name__ == "__main__":
 	navigationfile = open(basedir+"_data/navigation.yml", "w")
 
 	os.system("mkdir -p "+basedir+destinationdirectory)
+	navigationfile.write("main:\n")
+	for src in glob.glob(basedir+sourcedirectory+"*/index.md"): 
+		print src
+		destination = src.replace(basedir+sourcedirectory, "")
+		dest = destination.replace("/", "_")
+		destination = destination.replace("/index.md", "")
+		#if (destination.startswith("home")): destination = destination[:len("home")]
+		if(destination == ""): destination = "/"
+		navtitle = destination
+		destinationfile = open(dest, "w")
+		with open(src, "r") as infile:
+			content = infile.readlines()
+			config = {}
+			if (content[0].startswith(CONFIGDELIMITER)): # the first line starts with the header marker 
+				config = yaml.safe_load(content[0][len(CONFIGDELIMITER):])
+				content.pop(0) # remove the header line 
+				print config
+
+			# writing the header for navigation
+			destinationfile.write("---\n")
+			if ("title" in config): 
+				destinationfile.write("title: {}\n".format(config["title"]))
+			destinationfile.write("permalink: {}\n".format("/"+destination))
+			destinationfile.write("layout: single\n")
+			#destinationfile.write("sidebar:\n  nav: \"{}\"\n".format(instance))
+			if ("toc" in config and config["toc"]==1): destinationfile.write("toc: true\n")
+			destinationfile.write("---\n")
+
+			if ("navtitle" in config): 
+				navtitle = config["navtitle"]
+
+			for line in content: 
+				destinationfile.write(line)
+		destinationfile.close()
+
+		navigationfile.write(" - title: \"{}\"\n".format(navtitle))
+		navigationfile.write("   url: {}\n".format(destination))
+
+	print "Regular website building"
 	for item in os.listdir(basedir+sourcedirectory): 
 		source = os.path.join(sourcedirectory, item)
 		destination = destinationdirectory+item #os.path.join(destinationdirectory, item)
