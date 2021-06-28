@@ -40,58 +40,22 @@ def copyFolderContent(sourcedir, destdir, navfile, indent, instance):
 				title = item
 			navfile.write(indent*"  "+"- title: "+title+"\n")
 			if (os.path.isfile(src+"/index.md")): # There is a index.md file in the folder 
-				destinationfile = open(dest+"_index.md", "w")
-				with open(src+"/index.md", "r") as infile:
-					content = infile.readlines()
-					config = {}
-					if (content[0].startswith(CONFIGDELIMITER)): # the first line starts with the header marker 
-						config = yaml.safe_load(content[0][len(CONFIGDELIMITER):])
-						content.pop(0) # remove the header line 
-						print config
+				
+				address = destination.replace(destinationdirectory, "")
 
-					# writing the header for navigation
-					destinationfile.write("---\n")
-					if ("title" in config): 
-						destinationfile.write("title: {}\n".format(config["title"]))
-					destinationfile.write("permalink: {}\n".format("/"+destination))
-					destinationfile.write("layout: single\n")
-					destinationfile.write("sidebar:\n  nav: \"{}\"\n".format(instance))
-					if ("toc" in config and config["toc"]==1): destinationfile.write("toc: true\n")
-					destinationfile.write("---\n")
+				config = copyFile(src+"/index.md", dest+"_index.md", address, instance)
 
-					for line in content: 
-						destinationfile.write(line)
-				destinationfile.close()
-				navfile.write(indent*"  "+"  url: "+destination+"\n")
+				navfile.write(indent*"  "+"  url: "+address+"\n")
 
 			navfile.write(indent*"  "+"  children: "+"\n")
 			copyFolderContent(source, destination, navfile, indent+1, instance)
 		elif (os.path.isfile(src)): 
 			if (".md" in item): # only copy .md files
-				destination = source.replace("source/", "").replace(".md", "")
+				if ("index" in item): continue
+				destination = source.replace(sourcedirectory, "").replace(".md", "")
 				if (debug): print "\tcopying file: {} to: {}".format(src, dest)
-				destinationfile = open(dest, "w")
-				with open(src, "r") as infile:
-					content = infile.readlines()
-					config = {}
-					if (content[0].startswith(CONFIGDELIMITER)): # the first line starts with the header marker 
-						config = yaml.safe_load(content[0][len(CONFIGDELIMITER):])
-						content.pop(0) # remove the header line 
-						print config
-
-					# writing the header for navigation
-					destinationfile.write("---\n")
-					if ("title" in config): 
-						destinationfile.write("title: {}\n".format(config["title"]))
-					destinationfile.write("permalink: {}\n".format("/"+destination))
-					destinationfile.write("layout: single\n")
-					destinationfile.write("sidebar:\n  nav: \"{}\"\n".format(instance))
-					if ("toc" in config and config["toc"]==1): destinationfile.write("toc: true\n")
-					destinationfile.write("---\n")
-
-					for line in content: 
-						destinationfile.write(line)
-				destinationfile.close()
+				
+				config = copyFile(src, dest, destination, instance)
 
 				if ("navtitle" in config): 
 					navtitle = config["navtitle"]
@@ -102,6 +66,33 @@ def copyFolderContent(sourcedir, destdir, navfile, indent, instance):
 
 		else: 
 			print "Error: {} is not a content file nor a directory!".format(src)
+
+
+def copyFile(src, dest, url, instance): 
+	if (debug): print "\tcopying file: {} to: {}".format(src, dest)
+	destinationfile = open(dest, "w")
+	with open(src, "r") as infile:
+		content = infile.readlines()
+		config = {}
+		if (content[0].startswith(CONFIGDELIMITER)): # the first line starts with the header marker 
+			config = yaml.safe_load(content[0][len(CONFIGDELIMITER):])
+			content.pop(0) # remove the header line 
+			print config
+
+		# writing the header for navigation
+		destinationfile.write("---\n")
+		if ("title" in config): 
+			destinationfile.write("title: {}\n".format(config["title"]))
+		destinationfile.write("permalink: {}\n".format("/"+url))
+		destinationfile.write("layout: single\n")
+		destinationfile.write("sidebar:\n  nav: \"{}\"\n".format(instance))
+		if ("toc" in config and config["toc"]==1): destinationfile.write("toc: true\n")
+		destinationfile.write("---\n")
+
+		for line in content: 
+			destinationfile.write(line)
+	destinationfile.close()
+	return config
 
 	# Add as an entry to the menu 
 	
@@ -117,36 +108,17 @@ if __name__ == "__main__":
 	for src in glob.glob(basedir+sourcedirectory+"*/index.md"): 
 		print src
 		destination = src.replace(basedir+sourcedirectory, "")
-		dest = destination.replace("/", "_")
+		dest = basedir+destinationdirectory+destination.replace("/", "_")
 		destination = destination.replace("/index.md", "")
 		#if (destination.startswith("home")): destination = destination[:len("home")]
 		if(destination == ""): destination = "/"
 		navtitle = destination
-		destinationfile = open(dest, "w")
-		with open(src, "r") as infile:
-			content = infile.readlines()
-			config = {}
-			if (content[0].startswith(CONFIGDELIMITER)): # the first line starts with the header marker 
-				config = yaml.safe_load(content[0][len(CONFIGDELIMITER):])
-				content.pop(0) # remove the header line 
-				print config
+		print destination
+		
+		config = copyFile(src, dest, destination, destination.replace("/", ""))
 
-			# writing the header for navigation
-			destinationfile.write("---\n")
-			if ("title" in config): 
-				destinationfile.write("title: {}\n".format(config["title"]))
-			destinationfile.write("permalink: {}\n".format("/"+destination))
-			destinationfile.write("layout: single\n")
-			#destinationfile.write("sidebar:\n  nav: \"{}\"\n".format(instance))
-			if ("toc" in config and config["toc"]==1): destinationfile.write("toc: true\n")
-			destinationfile.write("---\n")
-
-			if ("navtitle" in config): 
-				navtitle = config["navtitle"]
-
-			for line in content: 
-				destinationfile.write(line)
-		destinationfile.close()
+		if ("navtitle" in config): 
+			navtitle = config["navtitle"]
 
 		navigationfile.write(" - title: \"{}\"\n".format(navtitle))
 		navigationfile.write("   url: {}\n".format(destination))
@@ -161,6 +133,10 @@ if __name__ == "__main__":
 			indentation = 1
 			#os.system("mkdir -p "+basedir+destination)
 			copyFolderContent(source, destination, navigationfile, indentation, item)
+
+#			if (os.path.isfile(source+"/index.md")): 
+#				dest = destination.replace("")
+
 
 	navigationfile.close()
 
