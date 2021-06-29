@@ -41,7 +41,7 @@ def copyFolderContent(sourcedir, destdir, navfile, indent, instance):
 			navfile.write(indent*"  "+"- title: "+title+"\n")
 			if (os.path.isfile(src+"/index.md")): # There is a index.md file in the folder 
 				
-				address = destination.replace(destinationdirectory, "")
+				address = src.replace(basedir+sourcedirectory, "")
 				if (address.startswith("home")): address = address[len("home"):]
 
 				config = copyFile(src+"/index.md", dest+"_index.md", address, instance)
