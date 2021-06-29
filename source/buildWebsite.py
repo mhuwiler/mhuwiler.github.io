@@ -42,6 +42,7 @@ def copyFolderContent(sourcedir, destdir, navfile, indent, instance):
 			if (os.path.isfile(src+"/index.md")): # There is a index.md file in the folder 
 				
 				address = destination.replace(destinationdirectory, "")
+				if (address.startswith("home")): address = address[len("home"):]
 
 				config = copyFile(src+"/index.md", dest+"_index.md", address, instance)
 
@@ -54,6 +55,7 @@ def copyFolderContent(sourcedir, destdir, navfile, indent, instance):
 				if ("index" in item): continue
 				destination = source.replace(sourcedirectory, "").replace(".md", "")
 				if (debug): print "\tcopying file: {} to: {}".format(src, dest)
+				if (destination.startswith("home")): destination = destination[len("home"):]
 				
 				config = copyFile(src, dest, destination, instance)
 
@@ -110,8 +112,8 @@ if __name__ == "__main__":
 		destination = src.replace(basedir+sourcedirectory, "")
 		dest = basedir+destinationdirectory+destination.replace("/", "_")
 		destination = destination.replace("/index.md", "")
-		#if (destination.startswith("home")): destination = destination[:len("home")]
-		if(destination == ""): destination = "/"
+		if (destination.startswith("home")): destination = destination[len("home"):]
+		#if(destination == ""): destination = "/"
 		navtitle = destination
 		print destination
 		
