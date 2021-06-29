@@ -113,7 +113,7 @@ if __name__ == "__main__":
 		dest = basedir+destinationdirectory+destination.replace("/", "_")
 		destination = destination.replace("/index.md", "")
 		if (destination.startswith("home")): destination = destination[len("home"):]
-		#if(destination == ""): destination = "/"
+		if(destination == ""): destination = "/"
 		navtitle = destination
 		print destination
 		
