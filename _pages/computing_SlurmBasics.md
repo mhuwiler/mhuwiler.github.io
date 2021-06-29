@@ -1,4 +1,11 @@
-#<conf>{"title": "Slurm job environment hacks", "navtitle": "slurm basics", "toc":0}
+---
+title: Slurm job environment hacks
+permalink: /computing/SlurmBasics
+layout: single
+sidebar:
+  nav: "computing"
+---
+# Slurm job environment hacks
 
 To access a list of running jobs, one can do: 
 

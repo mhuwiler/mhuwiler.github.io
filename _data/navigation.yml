@@ -1,15 +1,36 @@
-# main links
 main:
-  - title: "Quick-Start Guide"
-    url: https://mmistakes.github.io/minimal-mistakes/docs/quick-start-guide/
-  # - title: "About"
-  #   url: https://mmistakes.github.io/minimal-mistakes/about/
-  # - title: "Sample Posts"
-  #   url: /year-archive/
-  # - title: "Sample Collections"
-  #   url: /collection-archive/
-  # - title: "Sitemap"
-  #   url: /sitemap/
-docs: 
-  - title: "Page"
-    url: "content/test/page/"
+ - title: "Home"
+   url: /
+ - title: "Computing"
+   url: computing
+home:
+computing:
+  - title: Mac OS 
+    url: computing/MacOS
+    children: 
+    - title: "Folder at root"
+      url: computing/MacOS/RootLink
+    - title: "Inatall java"
+      url: computing/MacOS/InstallJava
+    - title: "InstallJavaMacOSCatalina"
+      url: computing/MacOS/InstallJavaMacOSCatalina
+    - title: "Build ROOT"
+      url: computing/MacOS/ROOTCatalina
+    - title: "Forbid App update"
+      url: computing/MacOS/AppNoUpdate
+  - title: "AFS permission"
+    url: computing/AFSpermission
+  - title: "UNIX find"
+    url: computing/findOnUnix
+  - title: "slurm basics"
+    url: computing/SlurmBasics
+  - title: "LANG C error ssh"
+    url: computing/sshLangCError
+  - title: "git configuration"
+    url: computing/GitConfig
+  - title: "HTCondor basics"
+    url: computing/HTCondorBasics
+  - title: "vim cheat sheet"
+    url: computing/vimCheatSheet
+  - title: "SSL password"
+    url: computing/ChangeOpenssslPassword

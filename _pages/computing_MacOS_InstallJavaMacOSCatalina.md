@@ -1,4 +1,10 @@
-#<conf>{"title": "Installing Java on MacOS 10.15 Catalina", "navtitle": "Install Java", "toc":0}
+---
+permalink: /computing/MacOS/InstallJavaMacOSCatalina
+layout: single
+sidebar:
+  nav: "computing"
+---
+# Installing Java on MacOS 10.15 Catalina
 
 
 First we need to install java. This is easiest done with brew: 
