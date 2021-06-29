@@ -1,4 +1,4 @@
-# HTCondor batch system 
+#<conf>{"title": "HTCondor batch system", "navtitle": "HTCondor basics", "toc":1}
 
 HTCondor is a High Throughput grid engine, available to schedule jobs on Lxplus. Here is a summary of the most useful commands related to its use. 
 
@@ -37,4 +37,3 @@ To remove a given job, type the following command:
 To remove all jobs you submitted, use: 
 
 	condor_rm [username]
-

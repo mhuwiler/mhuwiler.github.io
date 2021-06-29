@@ -1,5 +1,4 @@
 #<conf>{"title": "Giving permission to an AFS folder", "navtitle": "AFS permission", "toc":1}
-# Giving permission to an AFS folder
 
 Information taken from: https://information-technology.web.cern.ch/services/fe/afs/howto/configure-afs-access-rights
 

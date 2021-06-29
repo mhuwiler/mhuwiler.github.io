@@ -1,4 +1,4 @@
-# Ceating folders in / under MacOS Catalina 
+#<conf>{"title": "Creating folders in root under MacOS Catalina", "navtitle": "Folder at root", "toc":0}
 
 With MacOS 10.15 Catalina, the system volume has become read-only, and it is therefore not possible anymore to create folders at the root /. It is however possible to create a symbolic at / that points to some other folder with write persmission in the filesystem. 
 

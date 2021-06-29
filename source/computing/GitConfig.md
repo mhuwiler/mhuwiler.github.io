@@ -10,7 +10,7 @@ Also, in my opinion, the default merge behaviour is not optimal, so I recommend 
 
 More about why this twak might be beneficial is explained here: https://mijingo.com/blog/preventing-non-fast-forward-git-merges
 
-##Git workflow
+## Git workflow
 
 Regarding the workflow to use for git projects, an idea is: 
 

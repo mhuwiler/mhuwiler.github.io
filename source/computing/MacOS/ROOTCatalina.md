@@ -1,4 +1,4 @@
-# Build ROOT on MacOS 10.15 Catalina
+#<conf>{"title": "Build ROOT on MacOS 10.15 Catalina", "navtitle": "Build ROOT", "toc":1}
 
 The way to build ROOT changes all so often (at almost every system update or major ROOT version change), as a lot of options have defaults that might change or break. For building ROOT on MacOS 10.15, with MacPorts, the optimal solution looks like this: 
 

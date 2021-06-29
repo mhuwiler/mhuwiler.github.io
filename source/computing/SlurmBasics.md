@@ -1,3 +1,4 @@
+#<conf>{"title": "Slurm job environment hacks", "navtitle": "slurm basics", "toc":0}
 # Slurm job environment hacks
 
 To access a list of running jobs, one can do: 
@@ -23,3 +24,5 @@ To cancel jobs:
 Or to cancell all your jobs: 
 
 	scancel -u [username]
+
+A more comprehensive list of commands can be found here: https://slurm.schedmd.com/man_index.html

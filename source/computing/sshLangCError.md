@@ -1,4 +1,4 @@
-# LANG = "C" error in ssh 
+#<conf>{"title": "LANG = \"C\" error in ssh ", "navtitle": "LANG C error ssh", "toc":0}
 
 It can happen (namely on MacOS) that certain commands typed in a remote SSH session trigger the following error: 
 
