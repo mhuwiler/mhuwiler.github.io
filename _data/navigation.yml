@@ -12,7 +12,7 @@ computing:
       url: computing/MacOS/RootLink
     - title: "Inatall java"
       url: computing/MacOS/InstallJava
-    - title: "InstallJavaMacOSCatalina"
+    - title: "Install Java"
       url: computing/MacOS/InstallJavaMacOSCatalina
     - title: "Build ROOT"
       url: computing/MacOS/ROOTCatalina

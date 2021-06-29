@@ -5,7 +5,6 @@ layout: single
 sidebar:
   nav: "computing"
 ---
-# Slurm job environment hacks
 
 To access a list of running jobs, one can do: 
 
