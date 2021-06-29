@@ -8,7 +8,7 @@ import glob
 
 
 sourcedirectory = "source/"
-destinationdirectory="content/"
+destinationdirectory="_pages/"
 basedir = "/Users/mhuwiler/coding/mhuwiler.github.io/"
 
 urlbase="http://127.0.0.1:4000/" #"https://mhuwiler.github.io/"
